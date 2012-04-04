@@ -1,0 +1,15 @@
+class PagesController < ApplicationController
+
+	before_filter :auth
+
+	def index
+		@title = "Yasso Tracker"
+	end
+
+	protected
+
+		def auth
+			authenticate_or_request_with_http_basic do |username, password|
+			username == "admin" && password == "admin"
+	  	end
+end

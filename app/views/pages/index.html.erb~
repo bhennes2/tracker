@@ -1,0 +1,38 @@
+<div id="control">
+	<p><img src="http://2.bp.blogspot.com/-jKSZl8jGudo/TgDN2jDxI4I/AAAAAAAAAHY/ta9gV3BehCg/s320/YASSO.jpg" title="Yasso" /></p>
+	<h1>Tracking your journey</h1>
+	<button id="start" type="button" style="background: green;">Start</button>
+	<button id="stop" type="button" style="background: red;">Stop</button>
+	<input type="hidden" id="flag" />
+
+</div><!-- control -->
+<div id="results">
+
+</div><!-- results -->
+<div id="progress">
+
+</div>
+<script>
+	$("#start").click(function(){
+		$("#flag").val("start");
+		$("#progress").html('<img src=\"http://d1shb4dcbzk6lv.cloudfront.net/loading-gif.gif\" title=\"Tracking!\"  />');
+		auto_update();
+	});
+	$("#stop").click(function(){
+		$("#flag").val("stop");
+		$("#progress").html('<img src=\"http://idreamintech.com/wp-content/uploads/2012/03/Stop.jpg\" style=\"max-width: 50px;\" title=\"Stopped!\" />');
+	});
+
+	function auto_update(){
+		if ($("#flag").val() != "stop"){
+			navigator.geolocation.getCurrentPosition(get_location);
+			setTimeout(auto_update, 5000);
+		}
+	}
+
+	function get_location(position) {
+      		// Show a map centered at (position.coords.latitude, position.coords.longitude).
+		$("#results").append(position.coords.latitude+","+position.coords.longitude+'</br>');
+	}
+
+</script>
